@@ -57,9 +57,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AsyncProcess\AsyncProcess.csproj">
+    <ProjectReference Include="..\AsyncProcess\AsyncProcess.Net.csproj">
       <Project>{71405a80-7254-492a-8db7-6dbd26c33602}</Project>
-      <Name>AsyncProcess</Name>
+      <Name>AsyncProcess.Net</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
