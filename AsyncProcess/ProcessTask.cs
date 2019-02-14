@@ -37,7 +37,10 @@ namespace AsyncProcess
                 StartInfo = startInfo
             };
 
-            _cancellationToken = cancellationToken;
+            _cancellationToken = cancellationToken;            
+
+            _process.OutputDataReceived += Process_OutputDataReceived;
+            _process.ErrorDataReceived += Process_ErrorDataReceived;
         }
 
         public ProcessTask(ProcessStartInfo startInfo, CancellationToken cancellationToken)
@@ -49,6 +52,9 @@ namespace AsyncProcess
             };
 
             _cancellationToken = cancellationToken;
+
+            _process.OutputDataReceived += Process_OutputDataReceived;
+            _process.ErrorDataReceived += Process_ErrorDataReceived;
         }
 
 
@@ -69,9 +75,6 @@ namespace AsyncProcess
                 var argumentBuilder = new ArgumentBuilder();
                 _process.StartInfo.Arguments = argumentBuilder.Build(arguments);
             }
-
-            _process.OutputDataReceived += Process_OutputDataReceived;
-            _process.ErrorDataReceived += Process_ErrorDataReceived;
 
             var taskCompletedSource = new TaskCompletionSource<int>();
             _process.Exited += (sender, args) =>
