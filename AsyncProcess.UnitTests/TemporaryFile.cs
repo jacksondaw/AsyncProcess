@@ -9,7 +9,7 @@ namespace AsyncProcess.Tests
 
         public TemporaryFile(string extension, string tempDirectory = null)
         {
-            var directory = tempDirectory ?? Path.GetTempPath();
+            var directory = tempDirectory ?? Directory.GetCurrentDirectory();
 
             _temporaryFileName = Path.Combine(directory, $"{Path.GetRandomFileName()}.{extension}");
         }

@@ -9,7 +9,7 @@ namespace AsyncProcess.Tests
 
         public TemporaryDirectory(string startingDirectory = null)
         {
-            var baseDirectory = string.IsNullOrEmpty(startingDirectory) ? Path.GetTempPath() : startingDirectory;
+            var baseDirectory = string.IsNullOrEmpty(startingDirectory) ? Directory.GetCurrentDirectory() : startingDirectory;
 
             _tempDirectoryPath = Path.Combine(baseDirectory, Path.GetRandomFileName());
 
