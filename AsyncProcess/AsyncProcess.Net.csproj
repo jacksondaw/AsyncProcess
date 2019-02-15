@@ -5,11 +5,10 @@
     <Authors>Jack Dawson</Authors>
     <Company />
     <Description>An adapter to allow for the System.Process to be run in an asynchronous context.</Description>
-    <PackageLicenseUrl>https://github.com/jackfacts/AsyncProcess/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/jackfacts/AsyncProcess</PackageProjectUrl>
     <RepositoryUrl>https://github.com/jackfacts/AsyncProcess</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 </Project>

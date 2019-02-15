@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncProcess.Net", "AsyncProcess\AsyncProcess.Net.csproj", "{71405A80-7254-492A-8DB7-6DBD26C33602}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncProcess.Net.Tests", "AsyncProcess.Tests\AsyncProcess.UnitTests.csproj", "{30E130C0-89F9-4C54-88E5-7217CA4093F7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncProcess.UnitTests", "AsyncProcess.UnitTests\AsyncProcess.UnitTests.csproj", "{30E130C0-89F9-4C54-88E5-7217CA4093F7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
