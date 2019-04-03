@@ -1,6 +1,6 @@
 # Async Process
 
-A simple adapter that allows a process to be executed asynchronously by a dotnet application. It is dotnet standard 2.0. 
+A simple adapter that allows a process to be executed asynchronously. Developed with .NET Standard 2.0.
 
 ## Installation
    

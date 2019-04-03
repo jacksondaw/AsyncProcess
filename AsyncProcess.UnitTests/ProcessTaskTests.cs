@@ -5,6 +5,7 @@ using System.IO;
 using System.Text;
 using AsyncProcess;
 using System.Diagnostics;
+using System;
 
 namespace AsyncProcess.Tests
 {
@@ -149,7 +150,7 @@ namespace AsyncProcess.Tests
             {
                 var batchScript = @"
                     @echo off
-                    ECHO 'Test Output'
+                    ECHO TestOutput
                     EXIT /B 0
                 ";
 
@@ -159,7 +160,10 @@ namespace AsyncProcess.Tests
                 processTask.OutputReceived += (sender, args) => {
                     var e = args as DataReceivedEventArgs;
                     Assert.IsNotNull(e);
-                    Assert.AreEqual("Test", e.Data);
+
+                    if (e.Data != null) {
+                        Assert.AreEqual("TestOutput", e.Data);
+                    }
                 };
                 
                 //Act
@@ -168,6 +172,61 @@ namespace AsyncProcess.Tests
                 //Assert
                 Assert.AreEqual(0, result);
             }
+        }
+
+        [TestMethod]
+        public async Task RunAsync_CallsGlobalApplication()
+        {
+            //Arrange
+            var outputWritten = false;
+            var startInfo = new ProcessStartInfo(){
+                FileName = "dir",
+                WindowStyle = ProcessWindowStyle.Hidden,
+                UseShellExecute = false,
+                RedirectStandardError = true,
+                RedirectStandardOutput = true,
+                CreateNoWindow = false,
+            };
+            var processTask = new ProcessTask(startInfo, cancellationToken);  
+            processTask.OutputReceived += (sender, args) => {
+                var e = args as DataReceivedEventArgs;
+                Assert.IsNotNull(e);
+
+                if (e.Data != null) {
+                    outputWritten = true;
+                }
+                Console.WriteLine(e.Data);
+            };                
+
+            //Act
+            var result = await processTask.RunAsync();
+
+            //Assert
+            Assert.AreEqual(0, result);
+            Assert.IsTrue(outputWritten);
+        }
+
+        [TestMethod]
+        public async Task RunAsync_DoesNotOverrideArguments()
+        {
+            //Arrange
+            var startInfo = new ProcessStartInfo(){
+                FileName = "dotnet",
+                Arguments = $"--version",
+                WindowStyle = ProcessWindowStyle.Hidden,
+                UseShellExecute = false,
+                RedirectStandardError = true,
+                RedirectStandardOutput = true,
+                CreateNoWindow = false,
+            };
+            var processTask = new ProcessTask(startInfo, cancellationToken);
+
+            //Act
+            var result = await processTask.RunAsync();
+
+            //Assert
+            Assert.AreEqual("--version", startInfo.Arguments);
+            Assert.AreEqual(0, result);
         }
     }
 }

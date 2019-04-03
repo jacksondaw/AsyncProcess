@@ -16,20 +16,22 @@ namespace AsyncProcess
 
         private CancellationToken _cancellationToken;
 
-        public ProcessTask(string fileName, CancellationToken cancellationToken)
+        public ProcessTask(string filename, CancellationToken cancellationToken)
         {
-            var fileInfo = new FileInfo(fileName);
-
-            var startInfo = new ProcessStartInfo(fileName)
+            var startInfo = new ProcessStartInfo(filename)
             {
                 WindowStyle = ProcessWindowStyle.Hidden,
                 UseShellExecute = false,
                 RedirectStandardError = true,
                 RedirectStandardOutput = true,
-                CreateNoWindow = false,
-                WorkingDirectory = fileInfo.DirectoryName,
-                //LoadUserProfile = true
+                CreateNoWindow = false
             };
+
+            if (File.Exists(filename))
+            {
+                var fileInfo = new FileInfo(filename);
+                startInfo.WorkingDirectory = fileInfo.DirectoryName;
+            }
 
             _process = new Process()
             {
@@ -57,7 +59,6 @@ namespace AsyncProcess
             _process.ErrorDataReceived += Process_ErrorDataReceived;
         }
 
-
         public event TaskOutputHandler ErrorReceived;
 
         public event TaskOutputHandler OutputReceived;
@@ -70,7 +71,7 @@ namespace AsyncProcess
         /// <returns></returns>
         public virtual Task<int> RunAsync(params string[] arguments)
         {
-            if (arguments != null)
+            if (arguments != null && arguments.Length > 0)
             {
                 var argumentBuilder = new ArgumentBuilder();
                 _process.StartInfo.Arguments = argumentBuilder.Build(arguments);
